@@ -2,10 +2,10 @@ from argparse import ArgumentParser
 import os
 import re
 
-re_title = re.compile(r'<title>.+</title>')
 
+def change_title(newtitle):
+    re_title = re.compile(r'<title>.+</title>')
 
-def change_tile():
     for item in os.listdir("."):
         _, ext = os.path.splitext(item)
         if not '.html' in ext.lower():
@@ -15,8 +15,8 @@ def change_tile():
             html = infile.read()
             title = re_title.search(html)
             if title:
-                newtitle = title.group(0).replace("HOPain", "D7")
-                newhtml = html.replace(title.group(0), newtitle)
+                newtitle_html = f"<title>{newtitle}</title>"
+                newhtml = html.replace(title.group(0), newtitle_html)
                 with open("./" + item, 'wt', encoding='utf8') as outfile:
                     outfile.write(newhtml)
 
@@ -37,4 +37,8 @@ def replace_text(origninal, replacement):
 if __name__ == "__main__":
     parser = ArgumentParser()
 
-    replace_text("HOPain Tools", "D7 OSINT Tools")
+    parser.add_argument("--change-title")
+    args = parser.parse_args()
+    if args.change_title:
+        
+        change_title(args.change_title)
