@@ -38,7 +38,13 @@ if __name__ == "__main__":
     parser = ArgumentParser()
 
     parser.add_argument("--change-title")
+    parser.add_argument("--replace-text")
+    parser.add_argument("--replacement-text")
+
     args = parser.parse_args()
     if args.change_title:
-        
+
         change_title(args.change_title)
+
+    if args.replace_text:
+        replace_text(args.replace_text, args.replacement_text)
